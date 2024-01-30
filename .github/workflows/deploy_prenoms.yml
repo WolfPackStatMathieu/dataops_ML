@@ -11,5 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Afficher la date
-        run: date
+      - uses: actions/checkout@v3
+
+      - name: Docker build
+        run: docker build -t prenoms ./prenoms
+
+      - name: Docker login
+        run: docker login -u wolfpackstatmathieu -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker tag
+        run: docker tag prenoms wolfpackstatmathieu/prenoms:${{ github.sha }}
+
+      - name: Docker push
+        run: docker push wolfpackstatmathieu/prenoms:${{ github.sha }}

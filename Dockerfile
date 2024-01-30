@@ -18,4 +18,5 @@ COPY . /app/
 EXPOSE 5000
 
 # Commande à exécuter à chaque démarrage du conteneur
-CMD ["poetry", "run", "python", "api.py"]
+# CMD ["poetry", "run", "python", "api.py"]
+CMD ["bash", "-c", "flask --app api run --host 0.0.0.0 --port $FLASK_PORT"]
